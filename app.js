@@ -1,14 +1,22 @@
 const express = require('express');
+const exphbs = require('express-handlebars');
 
 const PORT = 3000;
 const app = express();
 
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs'
+}));
+app.set('view engine', '.hbs');
+
 app.get('/', (req, res) => {
-  res.send('INDEX');
+  const title = 'welcome';
+  res.render('index', { title: title });
 });
 
 app.get('/about', (req, res) => {
-  res.send('ABOUT');
+  res.render('about');
 });
 
 app.listen(PORT, err => {
