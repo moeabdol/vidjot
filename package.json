@@ -1,0 +1,31 @@
+{
+  "name": "vidjot",
+  "version": "1.0.0",
+  "description": "A simple video sharing app using the MEAN stack.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moeabdol/vidjot.git"
+  },
+  "keywords": [
+    "mean",
+    "javascript",
+    "video",
+    "sharing"
+  ],
+  "author": "moeabdol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moeabdol/vidjot/issues"
+  },
+  "homepage": "https://github.com/moeabdol/vidjot#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0"
+  }
+}
