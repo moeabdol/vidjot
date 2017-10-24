@@ -4,17 +4,17 @@
       <img src="/images/logo.png" class="logo" alt="logo" />
       <h3 class="text-center">Sign Up</h3>
 
-      <form action="" method="post">
+      <form action="/users/signup" method="post">
         <div class="form-group">
           <label for="name">Name</label>
           <input type="text" name="name" class="form-control"
-            autocomplete="off" />
+            autocomplete="off" value="{{name}}" />
         </div>
 
         <div class="form-group">
           <label for="email">E-Mail</label>
           <input type="email" name="email" class="form-control"
-            autocomplete="off" />
+            autocomplete="off" value="{{email}}" />
         </div>
 
         <div class="form-group">
@@ -24,8 +24,8 @@
         </div>
 
         <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input type="password" name="confirm-password" class="form-control"
+          <label for="password2">Confirm Password</label>
+          <input type="password" name="password2" class="form-control"
             autocomplete="off" />
         </div>
 
