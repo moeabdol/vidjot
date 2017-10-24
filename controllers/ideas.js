@@ -31,8 +31,15 @@ const create = (req, res) => {
     .catch(err => console.log(err));
 };
 
+const edit = (req, res) => {
+  Idea.findOne({ _id: req.params.id })
+    .then(idea => res.render('ideas/edit', { idea }))
+    .catch(err => console.log(err));
+};
+
 module.exports = {
   index,
   add,
-  create
+  create,
+  edit
 };
