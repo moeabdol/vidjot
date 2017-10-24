@@ -27,7 +27,10 @@ const create = (req, res) => {
     title: req.body.title,
     details: req.body.details
   }).save()
-    .then(() => res.redirect('/ideas'))
+    .then(() => {
+      req.flash('success', 'Idea created successfully.');
+      res.redirect('/ideas');
+    })
     .catch(err => console.log(err));
 };
 
@@ -54,7 +57,10 @@ const update = (req, res) => {
       idea.details = req.body.details;
 
       idea.save()
-        .then(() => res.redirect('/ideas'))
+        .then(() => {
+          req.flash('success', 'Idea updated successfully.');
+          res.redirect('/ideas');
+        })
         .catch(err => console.log(err));
     })
     .catch(err => console.log(err));
@@ -62,7 +68,10 @@ const update = (req, res) => {
 
 const destroy = (req, res) => {
   Idea.findByIdAndRemove(req.params.id)
-    .then(() => res.redirect('/ideas'))
+    .then(() => {
+      req.flash('success', 'Idea deleted successfully.');
+      res.redirect('/ideas');
+    })
     .catch(err => console.log(err));
 };
 

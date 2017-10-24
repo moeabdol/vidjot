@@ -2,6 +2,8 @@ const express        = require('express');
 const exphbs         = require('express-handlebars');
 const bodyParser     = require('body-parser');
 const methodOverride = require('method-override');
+const session        = require('express-session');
+const flash          = require('connect-flash');
 const path           = require('path');
 const ideasRoutes    = require('./routes/ideas');
 
@@ -24,6 +26,24 @@ app.use(bodyParser.json());
 
 // Configure method-override middleware
 app.use(methodOverride('_method'));
+
+// Configure express-session middlware
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Configure connect-flash middlware
+app.use(flash());
+
+// Global variables
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+
+  next();
+});
 
 // Configure routes
 app.use('/ideas', ideasRoutes);
