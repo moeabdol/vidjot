@@ -1,6 +1,7 @@
-const express = require('express');
-const exphbs  = require('express-handlebars');
-const path    = require('path');
+const express     = require('express');
+const exphbs      = require('express-handlebars');
+const bodyParser  = require('body-parser');
+const path        = require('path');
 const ideasRoutes = require('./routes/ideas');
 
 const PORT = 3000;
@@ -15,6 +16,10 @@ app.engine('.hbs', exphbs({
   extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+
+// Configure body-parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Configure routes
 app.use('/ideas', ideasRoutes);
