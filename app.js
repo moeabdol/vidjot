@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs  = require('express-handlebars');
 const path    = require('path');
+const ideasRoutes = require('./routes/ideas');
 
 const PORT = 3000;
 const app = express();
@@ -16,6 +17,8 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs');
 
 // Configure routes
+app.use('/ideas', ideasRoutes);
+
 app.get('/', (req, res) => {
   const title = 'welcome';
   res.render('index', { title: title });
