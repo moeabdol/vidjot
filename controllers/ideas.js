@@ -1,7 +1,10 @@
 const Idea = require('../models/idea');
 
 const index = (req, res) => {
-  res.send('ideas index');
+  Idea.find()
+    .sort({ date: 'desc' })
+    .then(ideas => res.render('ideas/index', { ideas }))
+    .catch(err => console.log(err));
 };
 
 const add = (rea, res) => {
@@ -20,12 +23,10 @@ const create = (req, res) => {
     details: req.body.details
   });
 
-  const newUserIdea = {
+  new Idea({
     title: req.body.title,
     details: req.body.details
-  };
-
-  new Idea(newUserIdea).save()
+  }).save()
     .then(() => res.redirect('/ideas'))
     .catch(err => console.log(err));
 };
