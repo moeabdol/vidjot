@@ -20,7 +20,14 @@ const create = (req, res) => {
     details: req.body.details
   });
 
-  res.send('passed');
+  const newUserIdea = {
+    title: req.body.title,
+    details: req.body.details
+  };
+
+  new Idea(newUserIdea).save()
+    .then(() => res.redirect('/ideas'))
+    .catch(err => console.log(err));
 };
 
 module.exports = {
