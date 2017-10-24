@@ -4,6 +4,11 @@ const index = (req, res) => {
   res.send('ideas index');
 };
 
+const add = (rea, res) => {
+  res.render('ideas/add');
+};
+
 module.exports = {
-  index
+  index,
+  add
 };
