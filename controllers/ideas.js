@@ -60,10 +60,17 @@ const update = (req, res) => {
     .catch(err => console.log(err));
 };
 
+const destroy = (req, res) => {
+  Idea.findByIdAndRemove(req.params.id)
+    .then(() => res.redirect('/ideas'))
+    .catch(err => console.log(err));
+};
+
 module.exports = {
   index,
   add,
   create,
   edit,
-  update
+  update,
+  destroy
 };
