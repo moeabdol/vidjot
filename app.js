@@ -5,12 +5,14 @@ const methodOverride = require('method-override');
 const session        = require('express-session');
 const flash          = require('connect-flash');
 const path           = require('path');
+const usersRoutes    = require('./routes/users');
 const ideasRoutes    = require('./routes/ideas');
 
 const PORT = 3000;
 const app = express();
 
 // Configure static file directories
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
 // Configure view engine
@@ -46,16 +48,16 @@ app.use((req, res, next) => {
 });
 
 // Configure routes
-app.use('/ideas', ideasRoutes);
-
 app.get('/', (req, res) => {
-  const title = 'welcome';
-  res.render('index', { title: title });
+  res.render('index', { title: 'Welcome' });
 });
 
 app.get('/about', (req, res) => {
   res.render('about');
 });
+
+app.use('/users', usersRoutes);
+app.use('/ideas', ideasRoutes);
 
 app.listen(PORT, err => {
   if (err) return console.log(err);
