@@ -1,3 +1,6 @@
+const User = require('../models/user');
+// const passport = require('passport');
+
 const signin = (req, res) => {
   res.render('users/signin');
 };
@@ -26,7 +29,23 @@ const create = (req, res) => {
     });
   }
 
-  res.send('passed');
+  User.findOne({ email: req.body.email })
+    .then(user => {
+      if (user) {
+        req.flash('error', 'Email already exists.');
+        return res.redirect('/users/signup');
+      }
+
+      User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+      }).then(() => {
+        req.flash('success', 'User signed up successfully.');
+        res.redirect('/users/signin');
+      }).catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
 };
 
 module.exports = {
