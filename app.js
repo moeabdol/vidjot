@@ -1,8 +1,9 @@
-const express     = require('express');
-const exphbs      = require('express-handlebars');
-const bodyParser  = require('body-parser');
-const path        = require('path');
-const ideasRoutes = require('./routes/ideas');
+const express        = require('express');
+const exphbs         = require('express-handlebars');
+const bodyParser     = require('body-parser');
+const methodOverride = require('method-override');
+const path           = require('path');
+const ideasRoutes    = require('./routes/ideas');
 
 const PORT = 3000;
 const app = express();
@@ -20,6 +21,9 @@ app.set('view engine', '.hbs');
 // Configure body-parser middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Configure method-override middleware
+app.use(methodOverride('_method'));
 
 // Configure routes
 app.use('/ideas', ideasRoutes);

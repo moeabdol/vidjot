@@ -6,7 +6,7 @@
 
 <div class="card card-body">
   <h3>Edit Video Idea</h3>
-  <form action="/ideas" method="post">
+  <form action="/ideas/{{idea.id}}?_method=PUT" method="post">
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" class="form-control" name="title" value="{{idea.title}}"/>
@@ -17,6 +17,7 @@
       <textarea class="form-control" name="details">{{idea.details}}</textarea>
     </div>
 
+    <input type="hidden" name="_method" value="PUT" />
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

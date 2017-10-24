@@ -37,9 +37,33 @@ const edit = (req, res) => {
     .catch(err => console.log(err));
 };
 
+const update = (req, res) => {
+  Idea.findOne({ _id: req.params.id })
+    .then(idea => {
+      let errors = [];
+
+      if (!req.body.title) errors.push({ text: 'Please add a title.' });
+      if (!req.body.details) errors.push({ text: 'Please add some details.' });
+
+      if (errors.length > 0) return res.render('ideas/edit', {
+        errors: errors,
+        idea: idea
+      });
+
+      idea.title = req.body.title;
+      idea.details = req.body.details;
+
+      idea.save()
+        .then(() => res.redirect('/ideas'))
+        .catch(err => console.log(err));
+    })
+    .catch(err => console.log(err));
+};
+
 module.exports = {
   index,
   add,
   create,
-  edit
+  edit,
+  update
 };
