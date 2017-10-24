@@ -1,15 +1,21 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
+const exphbs  = require('express-handlebars');
+const path    = require('path');
 
 const PORT = 3000;
 const app = express();
 
+// Configure static file directories
+app.use(express.static(path.join(__dirname, 'node_modules')));
+
+// Configure view engine
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',
   extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
 
+// Configure routes
 app.get('/', (req, res) => {
   const title = 'welcome';
   res.render('index', { title: title });
