@@ -1,7 +1,7 @@
 const Idea = require('../models/idea');
 
 const index = (req, res) => {
-  Idea.find()
+  Idea.find({ user: req.user._id })
     .sort({ date: 'desc' })
     .then(ideas => res.render('ideas/index', { ideas }))
     .catch(err => console.log(err));
@@ -25,7 +25,8 @@ const create = (req, res) => {
 
   new Idea({
     title: req.body.title,
-    details: req.body.details
+    details: req.body.details,
+    user: req.user._id
   }).save()
     .then(() => {
       req.flash('success', 'Idea created successfully.');
@@ -36,7 +37,14 @@ const create = (req, res) => {
 
 const edit = (req, res) => {
   Idea.findOne({ _id: req.params.id })
-    .then(idea => res.render('ideas/edit', { idea }))
+    .then(idea => {
+      if (idea.user != req.user._id) {
+        req.flash('error', 'Unauthorized user.');
+        return res.redirect('/ideas');
+      }
+
+      res.render('ideas/edit', { idea });
+    })
     .catch(err => console.log(err));
 };
 
@@ -44,6 +52,11 @@ const update = (req, res) => {
   Idea.findOne({ _id: req.params.id })
     .then(idea => {
       let errors = [];
+
+      if (idea.user != req.user._id) {
+        req.flash('error', 'Unauthorized user.');
+        return res.redirect('/ideas');
+      }
 
       if (!req.body.title) errors.push({ text: 'Please add a title.' });
       if (!req.body.details) errors.push({ text: 'Please add some details.' });
