@@ -40,16 +40,19 @@ app.use(session({
 // Configure connect-flash middlware
 app.use(flash());
 
-// Global variables
+// Configure passport middlware (must be included after express-session)
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Global variables (must be included after middlewares)
 app.use((req, res, next) => {
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
+  res.locals.user = req.user || null;
 
   next();
 });
-
-// Require passport middlware
-require('./config/passport')(passport);
 
 // Configure routes
 app.get('/', (req, res) => {

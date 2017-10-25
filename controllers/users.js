@@ -1,7 +1,5 @@
 const passport = require('passport');
-
 const User = require('../models/user');
-// const passport = require('passport');
 
 const signin = (req, res) => {
   res.render('users/signin');
@@ -10,6 +8,7 @@ const signin = (req, res) => {
 const enter = (req, res, next) => {
   passport.authenticate('local', {
     successRedirect: '/ideas',
+    successFlash: true,
     failureRedirect: '/users/signin',
     failureFlash: true
   })(req, res, next);
