@@ -1,8 +1,18 @@
+const passport = require('passport');
+
 const User = require('../models/user');
 // const passport = require('passport');
 
 const signin = (req, res) => {
   res.render('users/signin');
+};
+
+const enter = (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/ideas',
+    failureRedirect: '/users/signin',
+    failureFlash: true
+  })(req, res, next);
 };
 
 const signup = (req, res) => {
@@ -50,6 +60,7 @@ const create = (req, res) => {
 
 module.exports = {
   signin,
+  enter,
   signup,
   create
 };

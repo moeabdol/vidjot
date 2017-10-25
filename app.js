@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const session        = require('express-session');
 const flash          = require('connect-flash');
 const path           = require('path');
+const passport       = require('passport');
 const usersRoutes    = require('./routes/users');
 const ideasRoutes    = require('./routes/ideas');
 
@@ -46,6 +47,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+// Require passport middlware
+require('./config/passport')(passport);
 
 // Configure routes
 app.get('/', (req, res) => {

@@ -33,6 +33,8 @@
     "jquery": "^3.2.1",
     "method-override": "^2.3.10",
     "mongoose": "^4.12.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "popper.js": "^1.12.6"
   },
   "devDependencies": {
