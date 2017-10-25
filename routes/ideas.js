@@ -1,12 +1,13 @@
 const express = require('express');
 const router  = express.Router();
 const ideas   = require('../controllers/ideas');
+const authHelpers = require('../helpers/auth');
 
-router.get('/', ideas.index);
-router.get('/add', ideas.add);
-router.post('/', ideas.create);
-router.get('/edit/:id', ideas.edit);
-router.put('/:id', ideas.update);
-router.delete('/:id', ideas.destroy);
+router.get('/', authHelpers.ensureAuthenticated, ideas.index);
+router.get('/add', authHelpers.ensureAuthenticated, ideas.add);
+router.post('/', authHelpers.ensureAuthenticated, ideas.create);
+router.get('/edit/:id', authHelpers.ensureAuthenticated, ideas.edit);
+router.put('/:id', authHelpers.ensureAuthenticated, ideas.update);
+router.delete('/:id', authHelpers.ensureAuthenticated, ideas.destroy);
 
 module.exports = router;
