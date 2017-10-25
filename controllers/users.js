@@ -57,9 +57,16 @@ const create = (req, res) => {
     .catch(err => console.log(err));
 };
 
+const signout = (req, res) => {
+  req.flash('success', 'User signed out successsfully.');
+  req.logout();
+  res.redirect('/users/signin');
+};
+
 module.exports = {
   signin,
   enter,
   signup,
-  create
+  create,
+  signout
 };
